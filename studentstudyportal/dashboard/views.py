@@ -50,6 +50,7 @@ def homework(request):
             )
             homework.save()
             messages.success(request, 'The homework "{}" was added successfully'.format(homework.title))
+            return redirect('homework')
     else:
         form = HomeworkForm()
     homework = Homework.objects.filter(user=request.user)
@@ -106,7 +107,28 @@ def youtube(request):
     return render(request, 'dashboard/youtube.html', data)'''
 
 def todo(request):
-    form = ToDoForm()
+    if request.method == "POST":
+        form = ToDoForm(request.POST)
+        if form.is_valid():
+            try:
+                finished = request.POST['is_finished']
+                if finished == 'on':
+                    finished = True
+                else:
+                    finished = False
+            except:
+                finished = False
+            todo = ToDo(
+                user=request.user,
+                title=request.POST['title'],
+                due=request.POST['due'],
+                is_finished=finished
+            )
+            todo.save()
+            messages.success(request, 'The ToDo "{}" was added successfully'.format(todo.title))
+            return redirect('todo')
+    else:
+        form = ToDoForm()
     todo = ToDo.objects.filter(user=request.user)
     if len(todo) == 0:
         todo_done = True
