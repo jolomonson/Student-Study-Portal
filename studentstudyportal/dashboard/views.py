@@ -29,5 +29,9 @@ class NotesDetailView(generic.DetailView):
 
 def homework(request):
     homework = Homework.objects.filter(user=request.user)
-    data = {'homeworks':homework}
+    if len(homework) == 0:
+        homework_done = True
+    else:
+        homework_done = False
+    data = {'homeworks':homework, 'homework_done':homework_done}
     return render(request, 'dashboard/homework.html', data)
