@@ -28,7 +28,29 @@ class NotesDetailView(generic.DetailView):
     model = Notes
 
 def homework(request):
-    form = HomeworkForm()
+    if request.method == "POST":
+        form = HomeworkForm(request.POST)
+        if form.is_valid():
+            try:
+                finished = request.POST['is_finished']
+                if finished == 'on':
+                    finished = True
+                else:
+                    finished = False
+            except:
+                finished = False
+            homework = Homework(
+                user=request.user,
+                subject=request.POST['subject'],
+                title=request.POST['title'],
+                description=request.POST['description'],
+                due=request.POST['due'],
+                is_finished=finished
+            )
+            homework.save()
+            messages.success(request, 'The homework "{}" was added successfully'.format(homework.title))
+    else:
+        form = HomeworkForm()
     homework = Homework.objects.filter(user=request.user)
     if len(homework) == 0:
         homework_done = True

@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from django.forms import widgets
 
 class NotesForm(forms.ModelForm):
     class Meta:
@@ -12,5 +13,5 @@ class DateInput(forms.DateInput):
 class HomeworkForm(forms.ModelForm):
     class Meta:
         model = Homework
-        widget = {'due':DateInput()}
+        widgets = {'due':DateInput()}
         fields = ['subject','title','description','due','is_finished']

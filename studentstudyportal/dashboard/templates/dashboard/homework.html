@@ -61,6 +61,7 @@
                         </div>
                         <div class=" container">
                             <form method="POST">
+                                {% csrf_token %}
                                 <fieldset class="form-group">
                                     <legend class="border-bottom mb-4">Create Homework</legend>
                                 </fieldset>
@@ -77,5 +78,6 @@
             </div>
         </div>
     </section>
+    <br>
 </div>
 {% endblock content %}
