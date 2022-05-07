@@ -1,4 +1,4 @@
-{% extends 'dashboard/base.html' %} 
+{% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
 
@@ -7,16 +7,19 @@
     <table class="table table-striped table-bordered table-hover table-dark">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">S/N</th>
                 <th scope="col">Title</th>
+                <th scope="col">Due</th>
                 <th scope="col">Status</th>
                 <th scope="col">Delete</th>
             </tr>
         </thead>
         <tbody>
+            {% for todo in todos %}
             <tr>
-                <th scope="row">1</th>
-                <td>title</td>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{todo.title}}</td>
+                <td>{{todo.due}}</td>
                 <td>
                     <a href="#">
                         <div class="form-check">
@@ -30,6 +33,7 @@
 
                 <td><a href="#"><i class="fa fa-trash fa-2x"></i></a></td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
     <h4>All tasks have been done!! create to add more</h4>
