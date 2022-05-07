@@ -140,5 +140,6 @@ def todo(request):
 def edit_todo(request):
     pass
 
-def delete_todo(request):
-    pass
+def delete_todo(request, pk=None):
+    ToDo.objects.get(id=pk).delete()
+    return redirect('todo')
