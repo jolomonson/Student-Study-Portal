@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib import messages
@@ -147,4 +148,28 @@ def delete_todo(request, pk=None):
     return redirect('todo')
 
 def books(request):
-    return render(request, 'dashboard/books.html')
+    if request.method == "POST":
+        form = SearchForm(request.POST)
+        text = request.POST['text']
+        url = "https://www.googleapis.com/books/v1/volumes?q="+text
+        r = requests.get(url)
+        answer = r.json()
+        result_list = []
+        for i in range(10):
+            result_dict = {
+                'title':answer['items'][i]['volumeInfo']['title'],
+                'subtitle':answer['items'][i]['volumeInfo'].get('subtitle'),
+                'description':answer['items'][i]['volumeInfo'].get('description'),
+                'count':answer['items'][i]['volumeInfo'].get('pageCount'),
+                'categories':answer['items'][i]['volumeInfo'].get('categories'),
+                'rating':answer['items'][i]['volumeInfo'].get('pageRating'),
+                'thumbnail':answer['items'][i]['volumeInfo'].get('imageLinks').get('thumbnail'),
+                'preview':answer['items'][i]['volumeInfo'].get('previewLink'),
+            }
+            result_list.append(result_dict)
+            data = {'form':form, 'results':result_list}
+        return render(request, 'dashboard/books.html', data)
+    else:
+        form = SearchForm()
+    data = {'form':form}
+    return render(request, 'dashboard/books.html', data)
