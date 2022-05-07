@@ -68,5 +68,6 @@ def update_homework(request, pk=None):
     homework.save()
     return redirect('homework')
 
-def delete_homework(request):
-    pass
+def delete_homework(request, pk=None):
+    Homework.objects.get(id=pk).delete()
+    return redirect('homework')
