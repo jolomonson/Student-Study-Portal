@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib import messages
 from django.views import generic
+#from youtubesearchpython import VideosSearch
 
 # Create your views here.
 def home(request):
@@ -73,6 +74,36 @@ def delete_homework(request, pk=None):
     return redirect('homework')
 
 def youtube(request):
-    form = SearchForm()
+    pass
+    '''
+    if request.method == "POST":
+        form = SearchForm(request.POST)
+        text = request.POST['text']
+        #video = VideosSearch(text, limit=10)
+        result_list =[]
+        for i in video.result()['result']:
+            result_dict = {
+                'input':text,
+                'title':i['title'],
+                'duration':i['duration'],
+                'thumbnails':i['thumbnails'][0]['url'],
+                'channel':i['channel']['name'],
+                'link':i['link'],
+                'views':i['viewcount']['short'],
+                'published':i['publishedTime'],
+            }
+            desc = ""
+            if i['descriptionSnippet']:
+                for j in i['descriptionSnippet']:
+                    desc += j['text']
+            result_dict['description'] = desc
+            result_list.append(result_dict)
+            data = {'form':form, 'results':result_list}
+        return render(request, 'dashboard/youtube.html', data)
+    else:
+        form = SearchForm()
     data = {'form':form}
-    return render(request, 'dashboard/youtube.html', data)
+    return render(request, 'dashboard/youtube.html', data)'''
+
+def todo(request):
+    pass
