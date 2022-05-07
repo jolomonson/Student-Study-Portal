@@ -106,4 +106,4 @@ def youtube(request):
     return render(request, 'dashboard/youtube.html', data)'''
 
 def todo(request):
-    pass
+    return render(request, 'dashboard/todo.html')

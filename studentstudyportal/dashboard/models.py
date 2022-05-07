@@ -29,3 +29,16 @@ class Homework(models.Model):
     class Meta:
         verbose_name = "Homework"
         verbose_name_plural = "Homeworks"
+    
+class ToDo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(_('ToDo'),max_length=100)
+    due = models.DateTimeField()
+    is_finished = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = "ToDo"
+        verbose_name_plural = "ToDo"
