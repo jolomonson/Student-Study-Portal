@@ -175,4 +175,6 @@ def books(request):
     return render(request, 'dashboard/books.html', data)
 
 def dictionary(request):
-    pass
+    form = SearchForm()
+    data = {'form':form}
+    return render(request, 'dashboard/dictionary.html', data)
