@@ -26,3 +26,6 @@ def delete_notes(request, pk=None):
 
 class NotesDetailView(generic.DetailView):
     model = Notes
+
+def homework(request):
+    pass
