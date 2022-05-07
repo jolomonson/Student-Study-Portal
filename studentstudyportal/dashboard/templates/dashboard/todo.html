@@ -22,7 +22,7 @@
                                         <th scope="col">Title</th>
                                         <th scope="col">Due</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Delete</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody style="text-align: center;">
@@ -32,17 +32,18 @@
                                         <td>{{todo.title}}</td>
                                         <td>{{todo.due}}</td>
                                         <td>
-                                            <a href="#">
-                                                <div>
-                                                    {% if todo.is_finished == True %}
-                                                    <button class="btn btn-success">Done</button>
-                                                    {% else %}
-                                                    <button class="btn btn-info">Pending</button>
-                                                    {% endif %}
-                                                </div>
-                                            </a>
+                                            <div>
+                                                {% if todo.is_finished == True %}
+                                                <button class="btn btn-success">Done</button>
+                                                {% else %}
+                                                <button class="btn btn-info">Pending</button>
+                                                {% endif %}
+                                            </div>
                                         </td>
-                                        <td><a href="#"><i class="fa fa-trash fa-2x"></i></a></td>
+                                        <td>
+                                            <a href="#"><i class="fa fa-trash fa-2x"></i></a>
+                                            <button class="btn btn-warning">Edit</button>
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

@@ -136,3 +136,6 @@ def todo(request):
         todo_done = False
     data = {'todos':todo, 'todo_done':todo_done, 'form':form}
     return render(request, 'dashboard/todo.html', data)
+
+def edit_todo(request):
+    pass
