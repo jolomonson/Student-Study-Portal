@@ -19,4 +19,6 @@ urlpatterns = [
     path('delete-todo/<int:pk>', views.delete_todo, name='delete-todo'),
     # Books
     path('books', views.books, name='books'),
+    # Dictionary
+    path('dictionary', views.dictionary, name='dictionary'),
 ]
