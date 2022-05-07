@@ -28,4 +28,4 @@ class NotesDetailView(generic.DetailView):
     model = Notes
 
 def homework(request):
-    pass
+    return render(request, 'dashboard/homework.html')
