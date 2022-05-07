@@ -143,3 +143,6 @@ def edit_todo(request):
 def delete_todo(request, pk=None):
     ToDo.objects.get(id=pk).delete()
     return redirect('todo')
+
+def books(request):
+    pass
