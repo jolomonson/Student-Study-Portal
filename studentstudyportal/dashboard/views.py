@@ -106,7 +106,11 @@ def youtube(request):
     return render(request, 'dashboard/youtube.html', data)'''
 
 def todo(request):
-    form = ToDo()
+    form = ToDoForm()
     todo = ToDo.objects.filter(user=request.user)
-    data = {'todos':todo,'form':form}
+    if len(todo) == 0:
+        todo_done = True
+    else:
+        todo_done = False
+    data = {'todos':todo, 'todo_done':todo_done, 'form':form}
     return render(request, 'dashboard/todo.html', data)
