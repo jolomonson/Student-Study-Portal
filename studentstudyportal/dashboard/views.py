@@ -75,7 +75,9 @@ def delete_homework(request, pk=None):
     return redirect('homework')
 
 def youtube(request):
-    pass
+    form = SearchForm()
+    data = {'form':form}
+    return render(request, 'dashboard/youtube.html', data)
     '''
     if request.method == "POST":
         form = SearchForm(request.POST)
@@ -145,4 +147,4 @@ def delete_todo(request, pk=None):
     return redirect('todo')
 
 def books(request):
-    pass
+    return render(request, 'dashboard/books.html')
