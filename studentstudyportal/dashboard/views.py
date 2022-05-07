@@ -59,5 +59,11 @@ def homework(request):
     data = {'homeworks':homework, 'homework_done':homework_done, 'form':form}
     return render(request, 'dashboard/homework.html', data)
 
-def update_homework(request):
-    pass
+def update_homework(request, pk=None):
+    homework = Homework.objects.get(id=pk)
+    if homework.is_finished == True:
+        homework.is_finished = False
+    else:
+        homework.is_finished = True
+    homework.save()
+    return redirect('homework')
