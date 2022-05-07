@@ -12,5 +12,20 @@ class NotesAdmin(admin.ModelAdmin):
         'title',
         'description'
     )
+class HomeworkAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'subject',
+        'title',
+        'description',
+        'due',
+        'is_finished',
+    )
+    list_filter = (
+        'subject',
+        'title',
+        'description',
+    )
 
 admin.site.register(Notes, NotesAdmin)
+admin.site.register(Homework, HomeworkAdmin)

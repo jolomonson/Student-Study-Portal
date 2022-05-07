@@ -27,5 +27,5 @@ class Homework(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = "notes"
-        verbose_name_plural = "notes"
+        verbose_name = "Homework"
+        verbose_name_plural = "Homeworks"
