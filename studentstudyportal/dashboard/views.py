@@ -139,3 +139,6 @@ def todo(request):
 
 def edit_todo(request):
     pass
+
+def delete_todo(request):
+    pass
