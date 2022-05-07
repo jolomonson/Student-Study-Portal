@@ -58,3 +58,6 @@ def homework(request):
         homework_done = False
     data = {'homeworks':homework, 'homework_done':homework_done, 'form':form}
     return render(request, 'dashboard/homework.html', data)
+
+def update_homework(request):
+    pass
