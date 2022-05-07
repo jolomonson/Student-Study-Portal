@@ -8,5 +8,5 @@ def home(request):
 def notes(request):
     form = NotesForm()
     notes = Notes.objects.filter(user=request.user)
-    data = {'notes':notes}
+    data = {'notes':notes, 'form':form}
     return render(request, 'dashboard/notes.html', data)
