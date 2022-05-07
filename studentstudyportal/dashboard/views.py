@@ -67,3 +67,6 @@ def update_homework(request, pk=None):
         homework.is_finished = True
     homework.save()
     return redirect('homework')
+
+def delete_homework(request):
+    pass
