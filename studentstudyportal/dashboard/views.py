@@ -18,3 +18,6 @@ def notes(request):
     notes = Notes.objects.filter(user=request.user)
     data = {'notes':notes, 'form':form}
     return render(request, 'dashboard/notes.html', data)
+
+def delete_notes(request):
+    pass
