@@ -28,4 +28,6 @@ class NotesDetailView(generic.DetailView):
     model = Notes
 
 def homework(request):
-    return render(request, 'dashboard/homework.html')
+    homework = Homework.objects.filter(user=request.user)
+    data = {'homeworks':homework}
+    return render(request, 'dashboard/homework.html', data)

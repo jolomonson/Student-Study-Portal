@@ -16,17 +16,22 @@
             </tr>
         </thead>
         <tbody>
+            {% for homework in homeworks %}
             <tr>
-                <th scope="row">1</th>
-                <td>subject</td>
-                <td>title</td>
-                <td>description</td>
-                <td>due</td>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{homework.subject}}</td>
+                <td>{{homework.title}}</td>
+                <td>{{homework.description}}</td>
+                <td>{{homework.due}}</td>
 
                 <td>
                     <a href="#">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" checked id="1">
+                            {% if homework.is_finished == True %}
+                            <input class="form-check-input" type="checkbox" value="" checked>
+                            {% else %}
+                            <input class="form-check-input" type="checkbox" value="">
+                            {% endif %}
                             <label class="form-check-label text-light" for="flexCheckDefault">
                                 Mark as Completed
                             </label>
@@ -35,6 +40,7 @@
                 </td>
                 <td><a href="#"><i class="fa fa-trash fa-2x"></i></a></td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
     <h4>All homeworks are completed!! Create to have more!!</h4>
