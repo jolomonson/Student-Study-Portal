@@ -205,3 +205,5 @@ def dictionary(request):
         data = {'form':form,}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
         return render(request, 'dashboard/dictionary.html', data)
 
+def wikipedia(request):
+    pass 
