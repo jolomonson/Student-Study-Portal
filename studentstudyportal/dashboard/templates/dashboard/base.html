@@ -39,18 +39,18 @@
                 Options
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Books</a>
-                <a class="dropdown-item" href="#">Wikipedia</a>
+                <a class="dropdown-item" href="{% url 'books' %}">Books</a>
+                <a class="dropdown-item" href="{% url 'wikipedia' %}">Wikipedia</a>
                 <div class="dropdown-divider"></div>
 
-                <a class="dropdown-item" href="#">Dictionary</a>
-                <a class="dropdown-item" href="#">Youtube</a>
+                <a class="dropdown-item" href="{% url 'dictionary' %}">Dictionary</a>
+                <a class="dropdown-item" href="{% url 'youtube' %}">Youtube</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">To-do</a>
-                <a class="dropdown-item" href="#">Homework</a>
+                <a class="dropdown-item" href="{% url 'todo' %}">To-do</a>
+                <a class="dropdown-item" href="{% url 'homework' %}">Homework</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Notes</a>
-                <a class="dropdown-item" href="#">Conversion</a>
+                <a class="dropdown-item" href="{% url 'notes' %}">Notes</a>
+                <a class="dropdown-item" href="{% url 'conversion' %}">Conversion</a>
                 <div class="dropdown-divider"></div>
               </div>
             </li>
