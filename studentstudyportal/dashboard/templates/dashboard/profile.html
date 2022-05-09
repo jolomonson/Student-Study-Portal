@@ -2,95 +2,132 @@
 {% load static %}
 {% load crispy_forms_tags%}
 {% block content %}
-<section class="text-center">
-    <div class="container">
-        {% if not todos_done %}
-        <h2>Due To-Dos</h2>
-        <table class="table table-striped table-bordered table-hover table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">S/N</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Delete</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for todo in todos %}
-                <tr>
-                    <th scope="row">{{forloop.counter}}</th>
-                    <td>{{todo.title}}</td>
-                    <td>
-                        <a href="{% url 'update-todo' todo.id %">
-                            <div>
-                                {% if todo.is_finished == True %}
-                                <button class="btn btn-success">Done</button>
-                                {% else %}
-                                <button class="btn btn-info">Pending</button>
-                                {% endif %}
+<div class="container">
+    {% if not todo_done %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Due To-Dos</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap table-bordered">
+                                <thead style="text-align:center">
+                                    <tr>
+                                        <th scope="col">S/N</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Delete</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align: center;">
+                                    {% for todo in todos %}
+                                    <tr>
+                                        <th scope="row">{{forloop.counter}}</th>
+                                        <td>{{todo.title}}</td>
+                                        <td>
+                                            <a href="{% url 'update-todo' todo.id %">
+                                                <div>
+                                                    {% if todo.is_finished == True %}
+                                                    <button class="btn btn-success">Done</button>
+                                                    {% else %}
+                                                    <button class="btn btn-info">Pending</button>
+                                                    {% endif %}
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'delete-todo' todo.id %}"><i
+                                                    class="fa fa-trash fa-2x"></i></a>
+                                        </td>
+                                        <td><a href="#" class="btn btn-info">Edit</button></a>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <h3>All To dos are completed!!!!</h3>
+                            {% endif %}
+                            <div class="container">
+                                <a href="{% url 'todo' %}" class="btn btn-dark">To Do</a>
                             </div>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'delete-todo' todo.id %}"><i class="fa fa-trash fa-2x"></i></a>
-                    </td>
-                    <td><a href="#" class="btn btn-info">Edit</button></a>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <h3>All To dos are completed!!!!</h3>
-        {% endif %}
-        <a href="{% url 'todo' %}" class="btn btn-success">To Do</a>
-        <br><br>
-        {% if not homework_done %}
-        <h2>Due Homeworks</h2>
-        <table class="table table-striped table-bordered table-hover table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">S/N</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Due</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Delete</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for homework in homeworks %}
-                <tr>
-                    <th scope="row">{{forloop.counter}}</th>
-                    <td>{{homework.subject}}</td>
-                    <td>{{homework.title}}</td>
-                    <td>{{homework.description}}</td>
-                    <td>{{homework.due}}</td>
-                    <td>
-                        <a href="{% url 'update-homework' homework.id %}">
-                            <div>
-                                {% if homework.is_finished == True %}
-                                <button class="btn btn-success">Submitted</button>
-                                {% else %}
-                                <button class="btn btn-info">Submit</button>
-                                {% endif %}
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<br><br>
+<div class="container">
+    {% if not homework_done %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Due Homeworks</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
 
-                            </div>
-                        </a>
-                    </td>
-                    <td><a href="{% url 'delete-homework' homework.id %}"><i class="fa fa-trash fa-2x"></i></a></td>
-                    <td><a href="#" class="btn btn-info">Edit</button></a>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <h3>All To homeworks are completed!!!!</h3>
-        {% endif %}
-        <a href="{% url 'homework' %}" class="btn btn-success">Homeworks</a>
-    </div>
-</section>
+                            <table class="table table-hover text-nowrap table-bordered">
+                                <thead style="text-align:center">
+                                    <tr>
+                                        <th scope="col">S/N</th>
+                                        <th scope="col">Subject</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Due</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Delete</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align: center;">
+                                    {% for homework in homeworks %}
+                                    <tr>
+                                        <th scope="row">{{forloop.counter}}</th>
+                                        <td>{{homework.subject}}</td>
+                                        <td>{{homework.title}}</td>
+                                        <td>{{homework.description}}</td>
+                                        <td>{{homework.due}}</td>
+                                        <td>
+                                            <a href="{% url 'update-homework' homework.id %}">
+                                                <div>
+                                                    {% if homework.is_finished == True %}
+                                                    <button class="btn btn-success">Submitted</button>
+                                                    {% else %}
+                                                    <button class="btn btn-info">Submit</button>
+                                                    {% endif %}
 
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td><a href="{% url 'delete-homework' homework.id %}"><i
+                                                    class="fa fa-trash fa-2x"></i></a></td>
+                                        <td><a href="#" class="btn btn-info">Edit</button></a>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <h3>All To homeworks are completed!!!!</h3>
+                            {% endif %}
+                            <div class="container">
+                                <a href="{% url 'homework' %}" class="btn btn-dark">Homeworks</a>
+                            </div><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock content %}
