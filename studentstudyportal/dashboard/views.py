@@ -11,7 +11,9 @@ def home(request):
     return render(request, 'dashboard/home.html')
 
 def register(request):
-    pass
+    form = UserRegistrationForm()
+    data = {'form':form}
+    return render(request, 'dashboard/register.html', data)
 
 def notes(request):
     if request.method == "POST":
