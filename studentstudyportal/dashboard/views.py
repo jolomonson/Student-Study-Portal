@@ -17,6 +17,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, 'Account for {} created successfully'.format(username))
+            return redirect('login')
     else:
         form = UserRegistrationForm()
     data = {'form':form}
