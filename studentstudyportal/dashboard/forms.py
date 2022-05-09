@@ -24,3 +24,7 @@ class ToDoForm(forms.ModelForm):
         model = ToDo
         widgets = {'due':DateInput()}
         fields = ['title','due','is_finished']
+
+class ConversionForm(forms.Form):
+    CHOICES = [('length','Length'),('mass','Mass')]
+    measurement = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)

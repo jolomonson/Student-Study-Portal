@@ -226,4 +226,6 @@ def wikipedia(request):
     return render(request, 'dashboard/wiki.html', data)
 
 def conversion(request):
-    pass
+    form = ConversionForm()
+    data = {'form':form, 'input':False}
+    return render(request, 'dashboard/conversion.html', data)
