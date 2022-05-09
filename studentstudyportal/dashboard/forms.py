@@ -36,3 +36,11 @@ class ConversionLengthForm(forms.Form):
     ))
     measure1 = forms.CharField(label='', widget = forms.Select(choices=CHOICES))
     measure2 = forms.CharField(label='', widget = forms.Select(choices=CHOICES))
+
+class ConversionMassForm(forms.Form):
+    CHOICES = [('pound','Pound'),('kilogram','Kilogram')]
+    input = forms.CharField(required=False, label=False, widget=forms.TextInput(
+        attrs = {'type':'number','placeholder':'Enter the number'}
+    ))
+    measure1 = forms.CharField(label='', widget = forms.Select(choices=CHOICES))
+    measure2 = forms.CharField(label='', widget = forms.Select(choices=CHOICES))
