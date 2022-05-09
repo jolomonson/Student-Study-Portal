@@ -224,3 +224,6 @@ def wikipedia(request):
     form = SearchForm()
     data = {'form':form,}
     return render(request, 'dashboard/wiki.html', data)
+
+def conversion(request):
+    pass

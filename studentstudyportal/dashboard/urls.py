@@ -23,4 +23,6 @@ urlpatterns = [
     path('dictionary', views.dictionary, name='dictionary'),
     # Wikipedia
     path('wikipedia', views.wikipedia, name='wikipedia'),
+    # Conversion
+    path('conversion', views.conversion, name='conversion'),
 ]
