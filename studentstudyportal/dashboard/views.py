@@ -24,7 +24,24 @@ def register(request):
     return render(request, 'dashboard/register.html', data)
 
 def profile(request):
-    pass
+    homeworks = Homework.objects.filter(is_finished=False, user=request.user)
+    todos = ToDo.objects.filter(is_finished=False, user=request.user)
+    if len(homeworks) == 0:
+        homework_done = True
+    else:
+        homework_done = False
+    if len(todos) == 0:
+        todos_done = True
+    else:
+        todos_done = False
+        
+    data = {
+        'homeworks':homeworks,
+        'todos':todos,
+        'homework_done':homework_done,
+        'todos_done':todos_done
+    }
+    return render(request, 'dashboard/profile.html', data)
 
 def notes(request):
     if request.method == "POST":
