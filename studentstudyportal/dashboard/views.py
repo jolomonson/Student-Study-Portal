@@ -11,7 +11,14 @@ def home(request):
     return render(request, 'dashboard/home.html')
 
 def register(request):
-    form = UserRegistrationForm()
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, 'Account for {} created successfully'.format(username))
+    else:
+        form = UserRegistrationForm()
     data = {'form':form}
     return render(request, 'dashboard/register.html', data)
 
