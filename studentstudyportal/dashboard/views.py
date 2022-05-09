@@ -226,6 +226,38 @@ def wikipedia(request):
     return render(request, 'dashboard/wiki.html', data)
 
 def conversion(request):
-    form = ConversionForm()
-    data = {'form':form, 'input':False}
+    if request.method == "POST":
+        form = ConversionForm(request.POST)    
+        if request.POST['measurement'] == 'length':
+            measurement_form = ConversionLengthForm()
+            data = {'form':form, 'm_form':measurement_form, 'input':True}
+            if 'input' in request.POST:
+                first = request.POST['measure1']
+                second = request.POST['measure2']
+                input = request.POST['input']
+                answer = ''
+                if input and int(input) >= 0:
+                    if first == 'yard' and second == 'foot':
+                        answer = f'{input} yard={int(input)*3} foot'
+                    elif first == 'foot' and second == 'yard':
+                        answer = f'{input} yard={int(input)/3} yard'
+                data = {'form':form, 'm_form':measurement_form, 'answer':answer, 'input':True}
+        elif request.POST['measurement'] == 'mass':
+            measurement_form = ConversionMassForm()
+            data = {'form':form, 'm_form':measurement_form, 'input':True}
+            if 'input' in request.POST:
+                first = request.POST['measure1']
+                second = request.POST['measure2']
+                input = request.POST['input']
+                answer = ''
+                if input and int(input) >= 0:
+                    if first == 'pound' and second == 'kilogram':
+                        answer = f'{input} pound={int(input)*0.453592} kilogram'
+                    elif first == 'kilogram' and second == 'pound':
+                        answer = f'{input} kilogram={int(input)*2.20462} pound'
+                data = {'form':form, 'm_form':measurement_form, 'answer':answer, 'input':True}
+        return render(request, 'dashboard/conversion.html', data)    
+    else:                
+        form = ConversionForm()
+        data = {'form':form, 'input':False}
     return render(request, 'dashboard/conversion.html', data)
