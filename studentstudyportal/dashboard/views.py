@@ -23,6 +23,9 @@ def register(request):
     data = {'form':form}
     return render(request, 'dashboard/register.html', data)
 
+def profile(request):
+    pass
+
 def notes(request):
     if request.method == "POST":
         form = NotesForm(request.POST)
