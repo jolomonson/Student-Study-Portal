@@ -10,6 +10,9 @@ from django.views import generic
 def home(request):
     return render(request, 'dashboard/home.html')
 
+def register(request):
+    pass
+
 def notes(request):
     if request.method == "POST":
         form = NotesForm(request.POST)
