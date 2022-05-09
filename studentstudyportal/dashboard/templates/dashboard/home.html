@@ -3,7 +3,9 @@
 {% block content %}
 
 <section class="container text-center">
-  <h3>Welcome</h3>
+  {% if user.is_authenticated %}
+  <h3>Welcome {{user.username}}</h3>
+  {% endif %}
 
   <hr> <br>
   <div class="row">
