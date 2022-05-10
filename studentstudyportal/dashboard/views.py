@@ -152,8 +152,22 @@ def homework(request):
     return render(request, 'dashboard/homework.html', data)
 
 @login_required
-def edit_homework(request):
-    pass
+def edit_homework(request, pk=None):
+    form = EditHomeworkForm()
+    homework = Homework.objects.get(id=pk)
+    form.fields['subject'].initial = homework.subject
+    form.fields['title'].initial = homework.title
+    form.fields['description'].initial = homework.description
+    form.fields['due'].initial = homework.due
+    form.fields['is_finished'].initial = homework.is_finished
+
+    
+    data = {
+        'form':form,
+        'homework':homework
+    }
+
+    return render(request, 'dashboard/edit-homework.html', data)
 
 @login_required
 def update_homework(request, pk=None):
