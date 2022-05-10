@@ -61,9 +61,10 @@
                                 <fieldset class="form-group">
                                     <legend class="border-bottom mb-4">Edit your To-Do List</legend>
                                 </fieldset>
+                                <input type="text" name="todo_id" value="{{todo.id}}" hidden>
                                 {{form|crispy}}
                                 <div class="form-group">
-                                    <button href="" class="btn btn-outline-info" type="submit">
+                                    <button class="btn btn-outline-info" type="submit">
                                         Edit
                                     </button>
                                 </div>

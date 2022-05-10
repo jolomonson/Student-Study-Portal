@@ -191,8 +191,45 @@ def edit_todo(request, pk=None):
     form.fields['due'].initial = todo.due
     form.fields['is_finished'].initial = todo.is_finished
 
+    if request.method == "POST":
+        form = EditToDoForm(request.POST)
+        if form.is_valid():
+            pk = request.POST['todo_id']
+            title = form.cleaned_data['title'],
+            due = form.cleaned_data['due'],
+            is_finished = form.cleaned_data['is_finished']
+
+            new_todo = ToDo.objects.get(id=pk)
+            new_todo.title = form.cleaned_data['title'],
+            new_todo.due = form.cleaned_data['due'],
+            new_todo.is_finished = form.cleaned_data['is_finished']
+            new_todo.save()           
+            messages.success(request, '{} Edited Successfully'.format(title))
+            return redirect('todo')
+            '''
+            try:
+                new_todo = ToDo.objects.get(id=pk)
+                new_todo.title = title,
+                new_todo.due = due,
+                new_todo.is_finished = is_finished
+                new_todo.save()           
+                messages.success(request, '{} Edited Successfully'.format(title))
+                return redirect('todo')
+            except:
+                messages.error(request, 'Failed to edit {}'.format(title))
+                return redirect('todo')
+            '''
+        else:
+            form = EditToDoForm()
+            return render(request, 'dashboard/edit-todo.html', data)
+    '''
+    else:
+        messages.info(request, 'Invalid response method')
+        return redirect('todo')
+    '''
     data = {
         'form':form,
+        'todo':todo
     }
 
     return render(request, 'dashboard/edit-todo.html', data)
