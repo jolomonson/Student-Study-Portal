@@ -24,6 +24,7 @@ def register(request):
         form = UserRegistrationForm()
     data = {'form':form}
     return render(request, 'dashboard/register.html', data)
+
 @login_required
 def profile(request):
     homeworks = Homework.objects.filter(is_finished=False, user=request.user)
@@ -44,6 +45,7 @@ def profile(request):
         'todos_done':todos_done
     }
     return render(request, 'dashboard/profile.html', data)
+
 @login_required
 def notes(request):
     if request.method == "POST":
@@ -57,6 +59,7 @@ def notes(request):
     notes = Notes.objects.filter(user=request.user)
     data = {'notes':notes, 'form':form}
     return render(request, 'dashboard/notes.html', data)
+
 @login_required
 def delete_notes(request, pk=None):
     Notes.objects.get(id=pk).delete()
@@ -97,6 +100,7 @@ def homework(request):
         homework_done = False
     data = {'homeworks':homework, 'homework_done':homework_done, 'form':form}
     return render(request, 'dashboard/homework.html', data)
+
 @login_required
 def update_homework(request, pk=None):
     homework = Homework.objects.get(id=pk)
@@ -106,10 +110,12 @@ def update_homework(request, pk=None):
         homework.is_finished = True
     homework.save()
     return redirect('homework')
+
 @login_required
 def delete_homework(request, pk=None):
     Homework.objects.get(id=pk).delete()
     return redirect('homework')
+
 @login_required
 def youtube(request):
     form = SearchForm()
@@ -144,6 +150,7 @@ def youtube(request):
         form = SearchForm()
     data = {'form':form}
     return render(request, 'dashboard/youtube.html', data)'''
+
 @login_required
 def todo(request):
     if request.method == "POST":
@@ -175,13 +182,18 @@ def todo(request):
         todo_done = False
     data = {'todos':todo, 'todo_done':todo_done, 'form':form}
     return render(request, 'dashboard/todo.html', data)
+
 @login_required
 def edit_todo(request):
-    pass
+    form = EditToDoForm()
+    form
+    return render(request, 'dashboard/edit-todo.html', data)
+
 @login_required
 def delete_todo(request, pk=None):
     ToDo.objects.get(id=pk).delete()
     return redirect('todo')
+
 @login_required
 def books(request):
     if request.method == "POST":
@@ -209,6 +221,7 @@ def books(request):
         form = SearchForm()
     data = {'form':form}
     return render(request, 'dashboard/books.html', data)
+
 @login_required
 def dictionary(request):
     if request.method == "POST":
@@ -240,6 +253,7 @@ def dictionary(request):
         form = SearchForm()
         data = {'form':form,}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
         return render(request, 'dashboard/dictionary.html', data)
+
 @login_required
 def wikipedia(request):
     '''
@@ -259,6 +273,7 @@ def wikipedia(request):
     form = SearchForm()
     data = {'form':form,}
     return render(request, 'dashboard/wiki.html', data)
+
 @login_required
 def conversion(request):
     if request.method == "POST":
