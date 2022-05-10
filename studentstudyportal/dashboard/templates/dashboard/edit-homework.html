@@ -1,0 +1,89 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    {% if not homework_done %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Homework Details</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+
+                            <table class="table table-hover text-nowrap table-bordered">
+                                <thead style="text-align:center">
+                                    <tr>
+                                        <th scope="col">S/N</th>
+                                        <th scope="col">Subject</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Due</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Delete</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align: center;">
+                                    {% for homework in homeworks %}
+                                    <tr>
+                                        <th scope="row">{{forloop.counter}}</th>
+                                        <td>{{homework.subject}}</td>
+                                        <td>{{homework.title}}</td>
+                                        <td>{{homework.description}}</td>
+                                        <td>{{homework.due}}</td>
+
+                                        <td>
+                                            <a href="{% url 'update-homework' homework.id %}">
+                                                <div>
+                                                    {% if homework.is_finished == True %}
+                                                    <button class="btn btn-success">Submitted</button>
+                                                    {% else %}
+                                                    <button class="btn btn-info">Submit</button>
+                                                    {% endif %}
+
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'delete-homework' homework.id %}"><i
+                                                    class="fa fa-trash fa"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'edit-homework' homework.id %}"><i
+                                                    class="fa fa-edit fa"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <h4>All homeworks are completed!! Create to have more!!</h4>
+                            {% endif %}
+                        </div>
+                        <div class=" container">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <fieldset class="form-group">
+                                    <legend class="border-bottom mb-4">Edit your Homework</legend>
+                                </fieldset>
+                                {{form|crispy}}
+                                <div class="form-group">
+                                    <button href="" class="btn btn-outline-info" type="submit">
+                                        Edit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+</div>
+{% endblock content %}
