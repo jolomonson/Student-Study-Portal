@@ -7,8 +7,8 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     # Notes
     path('notes', views.notes, name='notes'),
-    path('edit-notes', views.edit_notes, name='edit-notes'),
-    path('delete-notes/<int:pk>', views.delete_notes, name='delete-notes'),
+    path('edit-note/<int:pk>', views.edit_note, name='edit-note'),
+    path('delete-note/<int:pk>', views.delete_note, name='delete-note'),
     path('notes-detail/<int:pk>', views.NotesDetailView.as_view(), name='notes-detail'),
     # Home work
     path('homework', views.homework, name='homework'),

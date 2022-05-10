@@ -51,20 +51,30 @@ def notes(request):
     if request.method == "POST":
         form = NotesForm(request.POST)
         if form.is_valid():
-            notes = Notes(user=request.user, title=request.POST['title'],description=request.POST['description'])
-            notes.save()
-        messages.success(request, 'The notes "{}" was added successfully'.format(notes.title))
+            try:
+                notes = Notes(
+                    user=request.user,
+                    title=request.POST['title'],
+                    description=request.POST['description']
+                )
+                notes.save()
+                messages.success(request, 'The notes "{}" was added successfully'.format(notes.title))
+            except:
+                messages.error(request, 'Failed to add note')
+        else:
+            messages.info(request, 'Invalid Form')
     else:
         form = NotesForm()
+        return render(request, 'dashboard/notes.html', {'form':form})
     notes = Notes.objects.filter(user=request.user)
     data = {'notes':notes, 'form':form}
     return render(request, 'dashboard/notes.html', data)
 
-def edit_notes(request):
+def edit_note(request, pk=None):
     pass
 
 @login_required
-def delete_notes(request, pk=None):
+def delete_note(request, pk=None):
     Notes.objects.get(id=pk).delete()
     return redirect('notes')
 
