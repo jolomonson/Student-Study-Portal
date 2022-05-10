@@ -70,8 +70,20 @@ def notes(request):
     data = {'notes':notes, 'form':form}
     return render(request, 'dashboard/notes.html', data)
 
+@login_required
 def edit_note(request, pk=None):
-    pass
+    form = EditNoteForm()
+    note = Notes.objects.get(id=pk)
+    form.fields['title'].initial = note.title
+    form.fields['description'].initial = note.description
+    
+    
+    data = {
+        'form':form,
+        'note':note
+    }
+
+    return render(request, 'dashboard/edit-note.html', data)
 
 @login_required
 def delete_note(request, pk=None):
@@ -212,14 +224,6 @@ def edit_todo(request, pk=None):
             due = form.cleaned_data['due'],
             is_finished = form.cleaned_data['is_finished']
 
-            new_todo = ToDo.objects.get(id=pk)
-            new_todo.title = form.cleaned_data['title'],
-            new_todo.due = form.cleaned_data['due'],
-            new_todo.is_finished = form.cleaned_data['is_finished']
-            new_todo.save()           
-            messages.success(request, '{} Edited Successfully'.format(title))
-            return redirect('todo')
-            '''
             try:
                 new_todo = ToDo.objects.get(id=pk)
                 new_todo.title = title,
@@ -231,7 +235,6 @@ def edit_todo(request, pk=None):
             except:
                 messages.error(request, 'Failed to edit {}'.format(title))
                 return redirect('todo')
-            '''
         else:
             form = EditToDoForm()
             return render(request, 'dashboard/edit-todo.html', data)
