@@ -60,6 +60,9 @@ def notes(request):
     data = {'notes':notes, 'form':form}
     return render(request, 'dashboard/notes.html', data)
 
+def edit_notes(request):
+    pass
+
 @login_required
 def delete_notes(request, pk=None):
     Notes.objects.get(id=pk).delete()
