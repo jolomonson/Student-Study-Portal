@@ -152,6 +152,10 @@ def homework(request):
     return render(request, 'dashboard/homework.html', data)
 
 @login_required
+def edit_homework(request):
+    pass
+
+@login_required
 def update_homework(request, pk=None):
     homework = Homework.objects.get(id=pk)
     if homework.is_finished == True:

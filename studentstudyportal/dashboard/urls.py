@@ -12,6 +12,7 @@ urlpatterns = [
     path('notes-detail/<int:pk>', views.NotesDetailView.as_view(), name='notes-detail'),
     # Home work
     path('homework', views.homework, name='homework'),
+    path('edit-homework/<int:pk>', views.edit_homework, name='edit-homework'),
     path('update-homework/<int:pk>', views.update_homework, name='update-homework'),
     path('delete-homework/<int:pk>', views.delete_homework, name='delete-homework'),
     # Youtube
