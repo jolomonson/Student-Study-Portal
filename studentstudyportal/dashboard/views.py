@@ -77,6 +77,31 @@ def edit_note(request, pk=None):
     form.fields['title'].initial = note.title
     form.fields['description'].initial = note.description
     
+    if request.method == "POST":
+        form = EditNoteForm(request.POST)
+        if form.is_valid():
+            pk = request.POST['note_id']
+            title = form.cleaned_data['title'],
+            description = form.cleaned_data['description'],
+            
+            try:
+                new_note = Notes.objects.get(id=pk)
+                new_note.title = title,
+                new_note.description = description,
+                new_note.save()           
+                messages.success(request, '{} Edited Successfully'.format(title))
+                return redirect('notes')
+            except:
+                messages.error(request, 'Failed to edit {}'.format(title))
+                return redirect('notes')
+        else:
+            form = EditNoteForm()
+            return render(request, 'dashboard/edit-note.html', data)
+    '''
+    else:
+        messages.info(request, 'Invalid response method')
+        return redirect('todo')
+    '''
     
     data = {
         'form':form,
