@@ -26,7 +26,7 @@ class EditHomeworkForm(forms.ModelForm):
     class Meta:
         model = Homework
         widgets = {'due':DateInput()}
-        fields = ['subject','title','description','due','is_finished']
+        fields = ['subject','title','description','is_finished']
 
 
 class SearchForm(forms.Form):

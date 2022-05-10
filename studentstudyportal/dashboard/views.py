@@ -158,10 +158,40 @@ def edit_homework(request, pk=None):
     form.fields['subject'].initial = homework.subject
     form.fields['title'].initial = homework.title
     form.fields['description'].initial = homework.description
-    form.fields['due'].initial = homework.due
+    #form.fields['due'].initial = homework.due
     form.fields['is_finished'].initial = homework.is_finished
 
-    
+    if request.method == "POST":
+        form = EditHomeworkForm(request.POST)
+        if form.is_valid():
+            pk = request.POST['homework_id']
+            subject = form.cleaned_data['subject'],
+            title = form.cleaned_data['title'],
+            description = form.cleaned_data['description'],
+            #due = form.cleaned_data['due'],
+            is_finished = form.cleaned_data['is_finished']
+
+            try:
+                new_homework = Homework.objects.get(id=pk)
+                new_homework.subject = subject,
+                new_homework.title = title,
+                new_homework.description = description,
+                #new_homework.due = due,
+                new_homework.is_finished = is_finished
+                new_homework.save()           
+                messages.success(request, '{} Edited Successfully'.format(title))
+                return redirect('homework')
+            except:
+                messages.error(request, 'Failed to edit {}'.format(title))
+                return redirect('homework')
+        else:
+            form = EditHomeworkForm()
+            return render(request, 'dashboard/edit-homework.html', data)
+    '''
+    else:
+        messages.info(request, 'Invalid response method')
+        return redirect('todo')
+    '''
     data = {
         'form':form,
         'homework':homework
