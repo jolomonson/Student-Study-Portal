@@ -184,9 +184,17 @@ def todo(request):
     return render(request, 'dashboard/todo.html', data)
 
 @login_required
-def edit_todo(request):
+def edit_todo(request, pk=None):
     form = EditToDoForm()
-    form
+    todo = ToDo.objects.get(id=pk)
+    form.fields['title'].initial = todo.title
+    form.fields['due'].initial = todo.due
+    form.fields['is_finished'].initial = todo.is_finished
+
+    data = {
+        'form':form,
+    }
+
     return render(request, 'dashboard/edit-todo.html', data)
 
 @login_required
