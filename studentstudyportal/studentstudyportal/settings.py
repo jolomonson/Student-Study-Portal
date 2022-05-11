@@ -29,7 +29,7 @@ DEBUG = True
 # Heroku Deployment
 # Comment Line 32 and Uncomment Line 31
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['studentstudyportal1.herokuapp.com']
+ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
