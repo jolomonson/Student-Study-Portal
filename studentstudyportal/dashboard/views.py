@@ -1,12 +1,12 @@
 from multiprocessing import context
 import requests
+import wikipedia
 from isodate import parse_duration
 from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .forms import *
 from django.contrib import messages
 from django.views import generic
-#import wikipedia
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -408,24 +408,15 @@ def dictionary(request):
         return render(request, 'dashboard/dictionary.html', data)
 
 @login_required
-def wikipedia(request):
-    '''
+def wikipediaa(request):
     if request.method == "POST":
-        text = request.POST['text']
-        form = SearchForm(request.POST)
-        search = wikipedia.page(text)
-        data = {
-            'form':form,
-            'title':search.title,
-            'details':search.summary
-        }
-    else:
-        form = SearchForm()
-        data = {'form':form,}
-    '''
-    form = SearchForm()
-    data = {'form':form,}
-    return render(request, 'dashboard/wiki.html', data)
+        search = request.POST['search']
+        try:
+            result = wikipedia.summary(search)  
+        except:
+            return HttpResponse("Wrong Input")
+        return render(request,"dashboard/wiki.html",{"result":result})
+    return render(request,"dashboard/wiki.html")
 
 @login_required
 def conversion(request):

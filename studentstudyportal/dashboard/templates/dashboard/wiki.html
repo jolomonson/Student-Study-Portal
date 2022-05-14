@@ -3,13 +3,14 @@
 {% block content %}
 
 <section class='text-center container'>
-    <h2>Search articles in wikipedia</h2>
-    <p>just enter the search query to obtain the results</p><b>Enter without any space</b>
-    <form action="" method="post">
-        <input class="btn btn-danger" type="submit" value="Submit">
-    </form><br>
-
-    <div class="container">
+    <h1>Search articles in wikipedia</h1>
+    <p>Just enter the search query to obtain the results</p><b>Enter without any space</b>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="search">
+        <button type="submit">Search</button>
+    </form> <br>
+    <!-- <div class="container">
         <div class="content-section p-0 mt-5">
             <a href="" class="p-0 m-0" target="_blank">
                 <div class="custom-header">
@@ -24,8 +25,10 @@
             </p>
             <hr>
         </div>
-    </div>
-
+    </div> -->
+    {% if result %}
+        {{result}}
+    {% endif %}
 </section>
 
 {% endblock content %}
