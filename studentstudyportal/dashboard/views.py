@@ -1,9 +1,11 @@
+from multiprocessing import context
 import requests
+from isodate import parse_duration
+from django.conf import settings
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib import messages
 from django.views import generic
-#from youtubesearchpython import VideosSearch
 #import wikipedia
 from django.contrib.auth.decorators import login_required
 
@@ -113,7 +115,7 @@ def edit_note(request, pk=None):
 @login_required
 def delete_note(request, pk=None):
     Notes.objects.get(id=pk).delete()
-    return redirect('notes')
+        return redirect('notes')
 
 class NotesDetailView(generic.DetailView):
     model = Notes
@@ -216,38 +218,55 @@ def delete_homework(request, pk=None):
 
 @login_required
 def youtube(request):
-    form = SearchForm()
-    data = {'form':form}
-    return render(request, 'dashboard/youtube.html', data)
-    '''
-    if request.method == "POST":
-        form = SearchForm(request.POST)
-        text = request.POST['text']
-        #video = VideosSearch(text, limit=10)
-        result_list =[]
-        for i in video.result()['result']:
-            result_dict = {
-                'input':text,
-                'title':i['title'],
-                'duration':i['duration'],
-                'thumbnails':i['thumbnails'][0]['url'],
-                'channel':i['channel']['name'],
-                'link':i['link'],
-                'views':i['viewcount']['short'],
-                'published':i['publishedTime'],
+    videos = []
+
+    if request.method == 'POST':
+        search_url = 'https://www.googleapis.com/youtube/v3/search'
+        video_url = 'https://www.googleapis.com/youtube/v3/videos'
+
+        search_params = {
+            'part' : 'snippet',
+            'q' :  request.POST['search'],
+            'key' : settings.YOUTUBE_DATA_API_KEY,
+            'maxResults' : 9,
+            'type' : 'video'
+        }
+
+        video_ids = []
+        r = requests.get(search_url, params=search_params)
+        
+        results = r.json()['items']
+
+        for result in results:
+            video_ids.append(result['id']['videoId'])
+
+        video_params = {
+            'key' : settings.YOUTUBE_DATA_API_KEY,
+            'part' : 'snippet,contentDetails',
+            'id' : ','.join(video_ids),
+            'maxResults' : 9
+        }
+
+        r = requests.get(video_url, params=video_params)
+
+        results = r.json()['items']
+
+        for result in results:
+            video_data = {
+                'title' : result['snippet']['title'],
+                'id' : result['id'],
+                'url' : f'https://www.youtube.com/watch?v={ result["id"] }',
+                'duration' : int(parse_duration(result['contentDetails']['duration']).total_seconds() // 60),
+                'thumbnail' : result['snippet']['thumbnails']['high']['url']
             }
-            desc = ""
-            if i['descriptionSnippet']:
-                for j in i['descriptionSnippet']:
-                    desc += j['text']
-            result_dict['description'] = desc
-            result_list.append(result_dict)
-            data = {'form':form, 'results':result_list}
-        return render(request, 'dashboard/youtube.html', data)
-    else:
-        form = SearchForm()
-    data = {'form':form}
-    return render(request, 'dashboard/youtube.html', data)'''
+
+            videos.append(video_data)
+
+    context = {
+        'videos' : videos
+    }
+ 
+    return render(request, 'dashboard/youtube.html', context) 
 
 @login_required
 def todo(request):
