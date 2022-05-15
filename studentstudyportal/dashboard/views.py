@@ -440,7 +440,7 @@ def conversion(request):
                     if first == 'yard' and second == 'foot':
                         answer = f'{input} yard={int(input)*3} foot'
                     elif first == 'foot' and second == 'yard':
-                        answer = f'{input} yard={int(input)/3} yard'
+                        answer = f'{input} foot={int(input)/3} yard'
                 data = {'form':form, 'm_form':measurement_form, 'answer':answer, 'input':True}
         elif request.POST['measurement'] == 'mass':
             measurement_form = ConversionMassForm()
