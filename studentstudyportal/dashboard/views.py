@@ -356,20 +356,26 @@ def books(request):
         r = requests.get(url)
         answer = r.json()
         result_list = []
-        for i in range(10):
-            result_dict = {
-                'title':answer['items'][i]['volumeInfo']['title'],
-                'subtitle':answer['items'][i]['volumeInfo'].get('subtitle'),
-                'description':answer['items'][i]['volumeInfo'].get('description'),
-                'count':answer['items'][i]['volumeInfo'].get('pageCount'),
-                'categories':answer['items'][i]['volumeInfo'].get('categories'),
-                'rating':answer['items'][i]['volumeInfo'].get('pageRating'),
-                'thumbnail':answer['items'][i]['volumeInfo'].get('imageLinks').get('thumbnail'),
-                'preview':answer['items'][i]['volumeInfo'].get('previewLink'),
-            }
-            result_list.append(result_dict)
-            data = {'form':form, 'results':result_list}
-        return render(request, 'dashboard/books.html', data)
+
+        try:
+            for i in range(10):
+                result_dict = {
+                    'title':answer['items'][i]['volumeInfo']['title'],
+                    'subtitle':answer['items'][i]['volumeInfo'].get('subtitle'),
+                    'description':answer['items'][i]['volumeInfo'].get('description'),
+                    'count':answer['items'][i]['volumeInfo'].get('pageCount'),
+                    'categories':answer['items'][i]['volumeInfo'].get('categories'),
+                    'rating':answer['items'][i]['volumeInfo'].get('pageRating'),
+                    'thumbnail':answer['items'][i]['volumeInfo'].get('imageLinks').get('thumbnail'),
+                    'preview':answer['items'][i]['volumeInfo'].get('previewLink'),
+                }
+                result_list.append(result_dict)
+                data = {'form':form, 'results':result_list}
+            return render(request, 'dashboard/books.html', data)
+        except:
+            messages.error(request, 'No search found')
+            return redirect('books')
+
     else:
         form = SearchForm()
     data = {'form':form}
