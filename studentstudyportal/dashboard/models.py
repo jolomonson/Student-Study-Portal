@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Notes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(_('Title'),max_length=200)
+    title = models.CharField(_('Title'),max_length=50)
     description = models.TextField()
 
     def __str__(self):
