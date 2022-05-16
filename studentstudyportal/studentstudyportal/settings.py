@@ -124,39 +124,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_ROOT = BASE_DIR / 'static/images'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+
+# API KEYS
+YOUTUBE_DATA_API_KEY = 'AIzaSyBAGadR6Fxo0DEceftZf70hkCKj3RaIi_4'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR/"static"]
-
-LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL = 'login'
-
-CRISPY_TEMPLATE_PACK = "bootstrap4"
-
-#Heroku Deployment
-# Comment for Line 147 - 161
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
-STATIC_URL = '/static/'
-
-# Extra lookup directories for collectstatic to find static files
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
-
-#  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-YOUTUBE_DATA_API_KEY = 'AIzaSyBAGadR6Fxo0DEceftZf70hkCKj3RaIi_4'
 
 import dj_database_url 
 prod_db  =  dj_database_url.config(conn_max_age=500)
