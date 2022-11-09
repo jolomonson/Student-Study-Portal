@@ -24,7 +24,8 @@ You can access your local server using this address on any web browser:
 http://127.0.0.1:8000/
 ## - Local Server (admin)
 Before you access the admin dashboard, you need to create a superuser.
-> python manage.py createsuperuser
+> python manage.py createsuperuser. <br>
+
 After following instructions of creating username, email address and password, you can access your admin dashboard with your login details
 ## Documentation
 You can check up django documentation page for any further information.
